@@ -7,9 +7,11 @@ public class Movement : MonoBehaviour {
 	float velocity = 0;
 	float jump = 0;
 	float side = 1;
+	bool fire = false;
 	bool jumping = false;
 	public SpriteRenderer srender;
 	public Rigidbody2D rdb;
+	public GameObject bullet;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +23,17 @@ public class Movement : MonoBehaviour {
 		velocity = Input.GetAxis ("Horizontal");
 		jump = Input.GetAxis ("Vertical");
 		jumping = Input.GetButtonDown ("Jump");
+		fire = Input.GetButtonDown ("Fire1");
+
+		if (fire) {
+			Debug.Log ("FIRING!!!!!!!");
+			anim.SetBool ("fire", true);
+			GameObject newBullet = (GameObject)Instantiate (bullet,transform.position,Quaternion.identity);
+			//newBullet.rigibody.AddForce (transform.forward * 1 * Time.deltaTime);
+		} else {
+			anim.SetBool ("fire", false);
+
+		}
 
 		if (jumping && anim.GetFloat("alt") < 0.7	) {
 			rdb.AddForce (Vector2.up * 5, ForceMode2D.Impulse);
