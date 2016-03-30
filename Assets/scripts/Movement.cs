@@ -17,7 +17,9 @@ public class Movement : MonoBehaviour {
 	void Start () {
 	
 	}
-	
+	void OnBecameInvisible(){
+		
+	}
 	// Update is called once per frame
 	void Update () {
 		velocity = Input.GetAxis ("Horizontal");
@@ -25,11 +27,14 @@ public class Movement : MonoBehaviour {
 		jumping = Input.GetButtonDown ("Jump");
 		fire = Input.GetButtonDown ("Fire1");
 
+
+
 		if (fire) {
 			Debug.Log ("FIRING!!!!!!!");
 			anim.SetBool ("fire", true);
 			GameObject newBullet = (GameObject)Instantiate (bullet,transform.position,Quaternion.identity);
-			//newBullet.rigibody.AddForce (transform.forward * 1 * Time.deltaTime);
+			Rigidbody2D rigiBullet = newBullet.GetComponent<Rigidbody2D>();
+			rigiBullet.AddForce(new Vector2(500,0));
 		} else {
 			anim.SetBool ("fire", false);
 
